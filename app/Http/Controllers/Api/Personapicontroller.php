@@ -1,27 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Person;
 
-class Personcontroller extends Controller
+class Personapicontroller extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $person=Person::all();
-        return view('dashboard.person.index',['person'=>$person]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('dashboard.person.create');
+        $people =Person::all(); 
+        return($people);
     }
 
     /**
@@ -39,7 +32,7 @@ class Personcontroller extends Controller
         $person->Phone=$request->input('Phone');
         $person->Email=$request->input('Email');
         $person->save();
-        return view("dashboard.person.message",['msg'=>"Persona agregada con éxito"]);
+        return $person;
     }
 
     /**
@@ -51,21 +44,21 @@ class Personcontroller extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $person=Person::find($id);
-        return view('dashboard.person.edit',['person'=>$person]);
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, string $id)
     {
-        
-        return view("dashboard.person.message",['msg'=>"Persona actualizado con éxito"]);
+        $person=Person::find($id);
+        $person->type=$request->input('type');
+        $person->First_Name=$request->input('First_Name');
+        $person->Last_Name=$request->input('Last_Name');
+        $person->Document_Type=$request->input('Document_Type');
+        $person->Document_Number=$request->input('Document_Number');
+        $person->Adress=$request->input('Adress');
+        $person->Phone=$request->input('Phone');
+        $person->Email=$request->input('Email');
+        $person->save();
+        return $person;
     }
 
     /**
@@ -73,8 +66,9 @@ class Personcontroller extends Controller
      */
     public function destroy(string $id)
     {
-        $person=Person::find($id);
+        $person=person::find($id);
         $person->delete();
-        return redirect("dashboard/person");
-    }
+        return("Persona eliminada");
+    }                   
 }
+    

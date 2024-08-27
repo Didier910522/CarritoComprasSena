@@ -49,7 +49,10 @@
    <div class="form-group row">
         <label for="state">Estado</label>
         <div class="col-sm-10">
-             
+            <select class="form-control" name="state" id="state">
+            <option value="1">Activo</option>
+            <option value="0">Inactivo</option>
+       </select>
         </div>
     </div> 
     <div class="form-group row">
